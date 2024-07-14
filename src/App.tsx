@@ -31,6 +31,8 @@ function App() {
     const { value, name } = event.target;
     setProduct({ ...product, [name]: value });
   };
+  console.log(product);
+
   // ---------- RENDER -----------
   const renderFormInputs = formInput.map((input) => (
     <div className="flex flex-col ">
@@ -44,8 +46,7 @@ function App() {
         type={input.type}
         id={input.id}
         name={input.name}
-        // WRONG VALUE PASSES 
-        value={''}
+        value={product[input.name]}
         onChange={onChangeHandler}
       />
     </div>
