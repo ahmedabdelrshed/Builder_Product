@@ -32,6 +32,8 @@ function App() {
     imageURL: "",
     price: "",
   });
+  const [tempColors, setTempColors] = useState<string[]>([]);
+  console.log(tempColors);
   // ------------ HANDLER ---------
   function closeModal() {
     setIsOpen(false);
@@ -83,9 +85,27 @@ function App() {
     </div>
   ));
   const renderProductColors = colors.map((color, i) => (
-    <CircleColor color={color} key={i} />
+    <CircleColor
+      color={color}
+      key={i}
+      onClick={() => {
+        if(tempColors.includes(color)){
+          setTempColors((prev) => prev.filter((c) => c!== color));
+          return;
+        }
+        setTempColors((prev) => [...prev, color]);
+      }}
+    />
   ));
-
+  const renderTempColors = tempColors.map((color) => (
+    <span
+      key={color}
+      className="p-1 mr-1 mb-1 text-xs rounded-md text-white"
+      style={{ backgroundColor: color }}
+    >
+      {color}
+    </span>
+  ));
   return (
     <main className="container ">
       <div className="flex justify-between items-center  p-2 m-5">
@@ -107,6 +127,9 @@ function App() {
       <Modal isOpen={isOpen} closeModal={closeModal} title="Add New Product">
         <form className="space-y-3" onSubmit={submitHandler}>
           {renderFormInputs}
+          <div className="flex my-4 flex-wrap space-x-1">
+            {renderTempColors}
+          </div>
           <div className="flex my-4 space-x-1">{renderProductColors}</div>
           <div className="flex items-center space-x-3">
             <Button className="bg-indigo-600 hover:bg-indigo-800">
