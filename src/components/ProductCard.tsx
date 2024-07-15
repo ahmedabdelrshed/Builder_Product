@@ -1,31 +1,39 @@
+import { IProduct } from "../interfaces";
 import { textSlicer } from "../utilis/functions";
+import CircleColor from "./CircleColor";
 import Image from "./Image";
 import Button from "./ui/Button";
 
-// interface IProps {
+// interface IProps   {
 
 // }
 
-const ProductCard = () => {
+const ProductCard = (product:IProduct) => {
+  const {title,description,imageURL,price,colors} = product;
+  // -------- RENDER --------------------------------
+  const renderProductColors = colors.map((color, i) => (
+    <CircleColor
+      color={color}
+      key={i}
+    />
+  ));
   return (
     <div className="max-w-sm md:max-w-lg mx-auto md:mx-0 border rounded-md p-3 flex flex-col">
       <Image
-        className="rounded-md mb-2 w-full h-52 lg:object-cover "
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4QaRqKWxfrGdQ9r5U5mWg-RWItNxzmphX-Q&s"
+        className="rounded-md mb-2 w-full h-52 lg:object-fill "
+        src={imageURL}
         alt="Product image"
       />
-      <h3>Cars dddddd</h3>
+      <h2 className="font-semibold">{title}</h2>
       <p>
         {textSlicer(
-          "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse rem ratione reprehenderit, ducimus fugit animi repudiandae vitae accusantium maiores incidunt perspiciatis libero assumenda dolore corrupti voluptate, mollitia alias quo voluptates?"
-        ,80)}
+          description,80)}
       </p>
-      <div className="flex my-4 space-x-3">
-        <span className="w-5 h-5 rounded-full bg-red-600 cursor-pointer" />
-        <span className="w-5 h-5 rounded-full bg-yellow-600 cursor-pointer" />
+      <div className="flex my-4 space-x-1">
+       {renderProductColors}
       </div>
       <div className="flex items-center justify-between ">
-        <span>$500,000</span>
+        <span>${price}</span>
         <Image
           className="w-10 h-10  rounded-full "
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4QaRqKWxfrGdQ9r5U5mWg-RWItNxzmphX-Q&s"

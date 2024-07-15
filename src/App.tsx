@@ -2,12 +2,13 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import ProductCard from "./components/ProductCard";
 import Modal from "./components/ui/Modal";
 import Button from "./components/ui/Button";
-import { colors, formInput } from "./data";
+import { colors, formInput, productList } from "./data";
 import Input from "./components/ui/Input";
 import { IProduct } from "./interfaces";
 import { productValidation } from "./validation";
 import ErrorMsg from "./components/ErrorMsg";
 import CircleColor from "./components/CircleColor";
+import { v4 as uuid } from "uuid";
 
 function App() {
   const defaultProduct = {
@@ -33,7 +34,7 @@ function App() {
     price: "",
   });
   const [tempColors, setTempColors] = useState<string[]>([]);
-  console.log(tempColors);
+  const [products, setProducts] = useState(productList);
   // ------------ HANDLER ---------
   function closeModal() {
     setIsOpen(false);
@@ -64,8 +65,14 @@ function App() {
       return;
     }
     console.log("Send Data Success");
+    setProducts([{ ...product, id: uuid(), colors: tempColors }, ...products]);
+    setProduct(defaultProduct);
+    closeModal();
   };
   // ---------- RENDER -----------
+  const renderProductList = products.map((product) => (
+    <ProductCard key={product.id} {...product} />
+  ));
   const renderFormInputs = formInput.map((input) => (
     <div className="flex flex-col" key={input.id}>
       <label
@@ -89,8 +96,8 @@ function App() {
       color={color}
       key={i}
       onClick={() => {
-        if(tempColors.includes(color)){
-          setTempColors((prev) => prev.filter((c) => c!== color));
+        if (tempColors.includes(color)) {
+          setTempColors((prev) => prev.filter((c) => c !== color));
           return;
         }
         setTempColors((prev) => [...prev, color]);
@@ -109,7 +116,7 @@ function App() {
   return (
     <main className="container ">
       <div className="flex justify-between items-center  p-2 m-5">
-        <h2>Product Last</h2>
+        <h2 className="font-bold text-2xl italic">Product <span className="text-indigo-600">List</span></h2>
         <Button
           className="bg-indigo-600 hover:bg-indigo-800"
           width="w-fit"
@@ -119,10 +126,7 @@ function App() {
         </Button>
       </div>
       <div className="m-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-4 p-2 rounded-md">
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
+        {renderProductList}
       </div>
       <Modal isOpen={isOpen} closeModal={closeModal} title="Add New Product">
         <form className="space-y-3" onSubmit={submitHandler}>
