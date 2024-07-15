@@ -21,7 +21,6 @@ const ProductCard = () => {
         ,80)}
       </p>
       <div className="flex my-4 space-x-3">
-        <span className="w-5 h-5 rounded-full bg-indigo-600 cursor-pointer" />
         <span className="w-5 h-5 rounded-full bg-red-600 cursor-pointer" />
         <span className="w-5 h-5 rounded-full bg-yellow-600 cursor-pointer" />
       </div>
