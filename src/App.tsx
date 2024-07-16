@@ -2,13 +2,14 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import ProductCard from "./components/ProductCard";
 import Modal from "./components/ui/Modal";
 import Button from "./components/ui/Button";
-import { colors, formInput, productList } from "./data";
+import { categories, colors, formInput, productList } from "./data";
 import Input from "./components/ui/Input";
 import { IProduct } from "./interfaces";
 import { productValidation } from "./validation";
 import ErrorMsg from "./components/ErrorMsg";
 import CircleColor from "./components/CircleColor";
 import { v4 as uuid } from "uuid";
+import Select from "./components/ui/Select";
 
 function App() {
   const defaultProduct = {
@@ -35,6 +36,7 @@ function App() {
   });
   const [tempColors, setTempColors] = useState<string[]>([]);
   const [products, setProducts] = useState(productList);
+  const [selectedCategory, setSelectedCategory] = useState(categories[0]);
   // ------------ HANDLER ---------
   function closeModal() {
     setIsOpen(false);
@@ -48,9 +50,9 @@ function App() {
     setError({ ...error, [name]: "" });
   };
   const onCancel = () => {
-    console.log("Cancelled");
     setProduct(defaultProduct);
     closeModal();
+    setTempColors([]);
   };
   const submitHandler = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
@@ -65,8 +67,18 @@ function App() {
       return;
     }
     console.log("Send Data Success");
-    setProducts([{ ...product, id: uuid(), colors: tempColors }, ...products]);
+
+    setProducts([
+      {
+        ...product,
+        id: uuid(),
+        colors: tempColors,
+        category: selectedCategory,
+      },
+      ...products,
+    ]);
     setProduct(defaultProduct);
+    setTempColors([]);
     closeModal();
   };
   // ---------- RENDER -----------
@@ -116,7 +128,9 @@ function App() {
   return (
     <main className="container ">
       <div className="flex justify-between items-center  p-2 m-5">
-        <h2 className="font-bold text-2xl italic">Product <span className="text-indigo-600">List</span></h2>
+        <h2 className="font-bold text-2xl italic">
+          Product <span className="text-indigo-600">List</span>
+        </h2>
         <Button
           className="bg-indigo-600 hover:bg-indigo-800"
           width="w-fit"
@@ -131,6 +145,10 @@ function App() {
       <Modal isOpen={isOpen} closeModal={closeModal} title="Add New Product">
         <form className="space-y-3" onSubmit={submitHandler}>
           {renderFormInputs}
+          <Select
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+          />
           <div className="flex my-4 flex-wrap space-x-1">
             {renderTempColors}
           </div>
@@ -139,7 +157,11 @@ function App() {
             <Button className="bg-indigo-600 hover:bg-indigo-800">
               Submit
             </Button>
-            <Button className="bg-red-600 hover:bg-red-800" onClick={onCancel}>
+            <Button
+              className="bg-red-600 hover:bg-red-800"
+              type="button"
+              onClick={onCancel}
+            >
               Cancel
             </Button>
           </div>

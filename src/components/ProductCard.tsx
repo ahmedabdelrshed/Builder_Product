@@ -8,14 +8,11 @@ import Button from "./ui/Button";
 
 // }
 
-const ProductCard = (product:IProduct) => {
-  const {title,description,imageURL,price,colors} = product;
+const ProductCard = (product: IProduct) => {
+  const { title, description, imageURL, price, colors, category } = product;
   // -------- RENDER --------------------------------
   const renderProductColors = colors.map((color, i) => (
-    <CircleColor
-      color={color}
-      key={i}
-    />
+    <CircleColor color={color} key={i} />
   ));
   return (
     <div className="max-w-sm md:max-w-lg mx-auto md:mx-0 border rounded-md p-3 flex flex-col">
@@ -25,20 +22,18 @@ const ProductCard = (product:IProduct) => {
         alt="Product image"
       />
       <h2 className="font-semibold">{title}</h2>
-      <p>
-        {textSlicer(
-          description,80)}
-      </p>
-      <div className="flex my-4 space-x-1">
-       {renderProductColors}
-      </div>
+      <p>{textSlicer(description, 80)}</p>
+      <div className="flex my-4 space-x-1">{renderProductColors}</div>
       <div className="flex items-center justify-between ">
         <span>${price}</span>
-        <Image
-          className="w-10 h-10  rounded-full "
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4QaRqKWxfrGdQ9r5U5mWg-RWItNxzmphX-Q&s"
-          alt="Product image"
-        />
+        <div className="flex items-center space-x-2">
+          <span>{category.name}</span>
+          <Image
+            className="w-10 h-10  rounded-full  "
+            src={category.imageURL}
+            alt="Product image"
+          />
+        </div>
       </div>
       <div className="flex items-center justify-between space-x-2 mt-3">
         <Button

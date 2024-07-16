@@ -27,3 +27,9 @@ export interface IInput {
     type: string;
     label: string;
 } 
+
+export interface ICategory {
+    id: string;
+    name: string;
+    imageURL: string;
+}

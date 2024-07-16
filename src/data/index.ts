@@ -1,4 +1,4 @@
-import { IInput, IProduct } from "../interfaces";
+import { ICategory, IInput, IProduct } from "../interfaces";
 import { v4 as uuid } from 'uuid';
 export const productList: IProduct[] = [
     {
@@ -110,4 +110,27 @@ export const colors: string[] = [
     "#1F8A70",
     "#820000",
     "#FF0032"
+]
+
+export const categories: ICategory[] = [
+    {
+        id: uuid(),
+        name: "Lap Tops",
+        imageURL: "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQxN4dSft1Rpe-bp1LmpVYDjhm5cpwoYUYMYyngmhCnN7kwS9QoG2e6WZ87A2ZS7T2XiiZTDm-5LtJKxGJyW1XgWTEl5Wu-6yzF7D8P7cV8jaQrs8MLh6HhFgweOoP947YvAcc5Aw&usqp=CAc"
+    }
+    , {
+        id: uuid(),
+        name: "Shoes",
+        imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4QaRqKWxfrGdQ9r5U5mWg-RWItNxzmphX-Q&s"
+    }
+    , {
+        id: uuid(),
+        name: "T-Shirt",
+        imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiTskihLm4bPE1fLtzKVc1VaFwqANnFExovA&s"
+    }
+    , {
+        id: uuid(),
+        name: "Mobile Phone",
+        imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSmG-lAwP3Pyu62zaY0k-zAIkL03yHKJYF4A&s"
+    }
 ]
