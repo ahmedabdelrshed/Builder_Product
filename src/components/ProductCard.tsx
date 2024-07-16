@@ -4,12 +4,19 @@ import CircleColor from "./CircleColor";
 import Image from "./Image";
 import Button from "./ui/Button";
 
-// interface IProps   {
+interface IProps {
+  product: IProduct;
+  setEditProduct:(product:IProduct) => void;
+  openEditModal: () => void;
+}
 
-// }
-
-const ProductCard = (product: IProduct) => {
+const ProductCard = ({ product ,setEditProduct , openEditModal}: IProps) => {
   const { title, description, imageURL, price, colors, category } = product;
+  // ----------- HANDLER -----------
+  const handleEditClick = () => {
+   setEditProduct(product);
+    openEditModal();
+  };
   // -------- RENDER --------------------------------
   const renderProductColors = colors.map((color, i) => (
     <CircleColor color={color} key={i} />
@@ -38,9 +45,7 @@ const ProductCard = (product: IProduct) => {
       <div className="flex items-center justify-between space-x-2 mt-3">
         <Button
           className="bg-indigo-700"
-          onClick={() => {
-            console.log("Clicked button");
-          }}
+          onClick={handleEditClick}
         >
           Edit
         </Button>

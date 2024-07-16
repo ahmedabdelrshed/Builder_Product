@@ -32,7 +32,7 @@ export const productValidation = (product: {
     }
 
     // validate Price 
-    if (isNaN(Number(product.price))) {
+    if (isNaN(Number(product.price)) || product.price === '') {
         error.price = "Invalid price. Please provide a valid Price."
     }
     return error

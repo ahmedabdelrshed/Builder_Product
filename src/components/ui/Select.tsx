@@ -10,14 +10,15 @@ import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { categories } from "../../data";
 import { ICategory } from "../../interfaces";
 
-interface IProps{
-    selectedCategory: ICategory;
-    setSelectedCategory: (category: ICategory) => void;
+interface IProps {
+  selectedCategory: ICategory;
+  setSelectedCategory: (category: ICategory) => void;
 }
 
-export default function Select({ selectedCategory, setSelectedCategory}:IProps) {
-console.log(selectedCategory);
-
+export default function Select({
+  selectedCategory,
+  setSelectedCategory,
+}: IProps) {
   return (
     <Listbox value={selectedCategory} onChange={setSelectedCategory}>
       <Label className="block text-sm font-medium  text-gray-900">
