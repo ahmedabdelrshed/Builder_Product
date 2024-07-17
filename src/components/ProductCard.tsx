@@ -6,16 +6,28 @@ import Button from "./ui/Button";
 
 interface IProps {
   product: IProduct;
-  setEditProduct:(product:IProduct) => void;
+  setEditProduct: (product: IProduct) => void;
   openEditModal: () => void;
+  indexProductEdit: number;
+  setIndexProductEdit: (index: number) => void;
+  setProductColors:(colors:string[]) => void;
 }
 
-const ProductCard = ({ product ,setEditProduct , openEditModal}: IProps) => {
+const ProductCard = ({
+  product,
+  setEditProduct,
+  openEditModal,
+  indexProductEdit,
+  setIndexProductEdit,
+  setProductColors
+}: IProps) => {
   const { title, description, imageURL, price, colors, category } = product;
   // ----------- HANDLER -----------
   const handleEditClick = () => {
-   setEditProduct(product);
+    setEditProduct(product);
     openEditModal();
+    setProductColors(colors);
+    setIndexProductEdit(indexProductEdit);
   };
   // -------- RENDER --------------------------------
   const renderProductColors = colors.map((color, i) => (
@@ -43,10 +55,7 @@ const ProductCard = ({ product ,setEditProduct , openEditModal}: IProps) => {
         </div>
       </div>
       <div className="flex items-center justify-between space-x-2 mt-3">
-        <Button
-          className="bg-indigo-700"
-          onClick={handleEditClick}
-        >
+        <Button className="bg-indigo-700" onClick={handleEditClick}>
           Edit
         </Button>
         <Button className="bg-red-700" width="w-full">

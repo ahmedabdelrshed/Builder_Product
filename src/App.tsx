@@ -45,7 +45,7 @@ function App() {
   const [products, setProducts] = useState(productList);
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
   const [editProduct, setEditProduct] = useState<IProduct>(defaultProduct);
-
+  const [indexProductEdit, setIndexProductEdit] = useState(0);
   // ------------ HANDLER ---------
   function closeModal() {
     setIsOpen(false);
@@ -115,17 +115,23 @@ function App() {
       setErrorEdit(errors);
       return;
     }
-    console.log("Send Data Success");
-
-    // closeModalEdit();
+    const editProducts = [...products];
+    editProducts[indexProductEdit] = { ...editProduct ,colors:tempColors};
+    setTempColors([])
+    setProducts(editProducts);
+    setEditProduct(defaultProduct);
+    closeModalEdit();
   };
   // ---------- RENDER -----------
-  const renderProductList = products.map((product) => (
+  const renderProductList = products.map((product, index) => (
     <ProductCard
       key={product.id}
       product={product}
       setEditProduct={setEditProduct}
       openEditModal={openModalEdit}
+      indexProductEdit={index}
+      setIndexProductEdit={setIndexProductEdit}
+      setProductColors={setTempColors}
     />
   ));
   const renderFormInputs = (
@@ -239,7 +245,7 @@ function App() {
             {renderTempColors}
           </div>
           <div className="flex my-4 space-x-1">
-            {renderProductColors(editProduct.colors)}
+            {renderProductColors(colors)}
           </div>
           <div className="flex items-center space-x-3">
             <Button className="bg-indigo-600 hover:bg-indigo-800">
