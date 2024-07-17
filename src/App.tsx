@@ -116,8 +116,8 @@ function App() {
       return;
     }
     const editProducts = [...products];
-    editProducts[indexProductEdit] = { ...editProduct ,colors:tempColors};
-    setTempColors([])
+    editProducts[indexProductEdit] = { ...editProduct, colors: tempColors };
+    setTempColors([]);
     setProducts(editProducts);
     setEditProduct(defaultProduct);
     closeModalEdit();
@@ -238,8 +238,10 @@ function App() {
         <form className="space-y-3" onSubmit={submitEditHandler}>
           {renderFormInputs(editProduct, onChangeEditHandler, errorEdit)}
           <Select
-            selectedCategory={selectedCategory}
-            setSelectedCategory={setSelectedCategory}
+            selectedCategory={editProduct.category}
+            setSelectedCategory={(value) =>
+              setEditProduct({ ...editProduct, category: value })
+            }
           />
           <div className="flex my-4 flex-wrap space-x-1">
             {renderTempColors}
