@@ -10,6 +10,7 @@ import ErrorMsg from "./components/ErrorMsg";
 import CircleColor from "./components/CircleColor";
 import { v4 as uuid } from "uuid";
 import Select from "./components/ui/Select";
+import toast, { Toaster } from "react-hot-toast";
 
 function App() {
   const defaultProduct = {
@@ -96,8 +97,6 @@ function App() {
       setError(errors);
       return;
     }
-    console.log("Send Data Success");
-
     setProducts([
       {
         ...product,
@@ -110,6 +109,12 @@ function App() {
     setProduct(defaultProduct);
     setTempColors([]);
     closeModal();
+    toast.success("Product Added successfully",{
+      style:{
+        backgroundColor: 'black',
+        color: '#fff'
+      }
+    });
   };
   const submitEditHandler = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
@@ -128,12 +133,26 @@ function App() {
     setProducts(editProducts);
     setEditProduct(defaultProduct);
     closeModalEdit();
+    toast.success("Product Updated successfully",{
+      style:{
+        backgroundColor: 'black',
+        color: '#fff'
+      }
+    });
   };
-  const submitDeleteProduct = ()=>{
-    const editProducts = [...products].filter((product) => product.id !== editProduct.id);
+  const submitDeleteProduct = () => {
+    const editProducts = [...products].filter(
+      (product) => product.id !== editProduct.id
+    );
     setProducts(editProducts);
     closeModalConfirm();
-  }
+    toast.success("Product Deleted successfully",{
+      style:{
+        backgroundColor: 'black',
+        color: '#fff'
+      }
+    });
+  };
   // ---------- RENDER -----------
   const renderProductList = products.map((product, index) => (
     <ProductCard
@@ -282,7 +301,12 @@ function App() {
         title="Are You Sure To Delete this Product ?  "
       >
         <div className="flex items-center space-x-3">
-          <Button className="bg-red-600 hover:bg-red-800" onClick={submitDeleteProduct}>Confirm</Button>
+          <Button
+            className="bg-red-600 hover:bg-red-800"
+            onClick={submitDeleteProduct}
+          >
+            Confirm
+          </Button>
           <Button
             className="bg-gray-400 hover:bg-gray-800"
             type="button"
@@ -292,6 +316,7 @@ function App() {
           </Button>
         </div>
       </Modal>
+      <Toaster />
     </main>
   );
 }
