@@ -26,6 +26,7 @@ function App() {
   // ---------- STATE ----------
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenModalEdit, setIsOpenModalEdit] = useState(false);
+  const [isOpenModalConfirm, setIsOpenModalConfirm] = useState(false);
   const [product, setProduct] = useState<IProduct>({
     ...defaultProduct,
   });
@@ -58,6 +59,12 @@ function App() {
   }
   function openModalEdit() {
     setIsOpenModalEdit(true);
+  }
+  function closeModalConfirm() {
+    setIsOpenModalConfirm(false);
+  }
+  function openModalConfirm() {
+    setIsOpenModalConfirm(true);
   }
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
@@ -122,6 +129,11 @@ function App() {
     setEditProduct(defaultProduct);
     closeModalEdit();
   };
+  const submitDeleteProduct = ()=>{
+    const editProducts = [...products].filter((product) => product.id !== editProduct.id);
+    setProducts(editProducts);
+    closeModalConfirm();
+  }
   // ---------- RENDER -----------
   const renderProductList = products.map((product, index) => (
     <ProductCard
@@ -132,6 +144,7 @@ function App() {
       indexProductEdit={index}
       setIndexProductEdit={setIndexProductEdit}
       setProductColors={setTempColors}
+      openModalConfirm={openModalConfirm}
     />
   ));
   const renderFormInputs = (
@@ -262,6 +275,22 @@ function App() {
             </Button>
           </div>
         </form>
+      </Modal>
+      <Modal
+        isOpen={isOpenModalConfirm}
+        closeModal={closeModalEdit}
+        title="Are You Sure To Delete this Product ?  "
+      >
+        <div className="flex items-center space-x-3">
+          <Button className="bg-red-600 hover:bg-red-800" onClick={submitDeleteProduct}>Confirm</Button>
+          <Button
+            className="bg-gray-400 hover:bg-gray-800"
+            type="button"
+            onClick={closeModalConfirm}
+          >
+            Cancel
+          </Button>
+        </div>
       </Modal>
     </main>
   );

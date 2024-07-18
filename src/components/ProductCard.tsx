@@ -10,7 +10,8 @@ interface IProps {
   openEditModal: () => void;
   indexProductEdit: number;
   setIndexProductEdit: (index: number) => void;
-  setProductColors:(colors:string[]) => void;
+  setProductColors: (colors: string[]) => void;
+  openModalConfirm: () => void;
 }
 
 const ProductCard = ({
@@ -19,7 +20,8 @@ const ProductCard = ({
   openEditModal,
   indexProductEdit,
   setIndexProductEdit,
-  setProductColors
+  setProductColors,
+  openModalConfirm
 }: IProps) => {
   const { title, description, imageURL, price, colors, category } = product;
   // ----------- HANDLER -----------
@@ -28,6 +30,10 @@ const ProductCard = ({
     openEditModal();
     setProductColors(colors);
     setIndexProductEdit(indexProductEdit);
+  };
+  const handleDeleteClick = () => {
+    setEditProduct(product);
+    openModalConfirm();
   };
   // -------- RENDER --------------------------------
   const renderProductColors = colors.map((color, i) => (
@@ -55,10 +61,13 @@ const ProductCard = ({
         </div>
       </div>
       <div className="flex items-center justify-between space-x-2 mt-3">
-        <Button className="bg-indigo-600 hover:bg-indigo-800" onClick={handleEditClick}>
+        <Button
+          className="bg-indigo-600 hover:bg-indigo-800"
+          onClick={handleEditClick}
+        >
           Edit
         </Button>
-        <Button className="bg-red-500 hover:bg-red-800" width="w-full">
+        <Button className="bg-red-500 hover:bg-red-800" width="w-full" onClick={handleDeleteClick}>
           Delete
         </Button>
       </div>
