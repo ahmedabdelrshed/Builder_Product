@@ -189,22 +189,22 @@ function App() {
   return (
     <main className="container ">
       <div className="flex justify-between items-center  p-2 m-5">
-        <h2 className="font-bold text-2xl italic">
+        <h2 className="font-bold text-xl md:text-2xl italic">
           Product <span className="text-indigo-600">List</span>
         </h2>
         <Button
-          className="bg-indigo-600 hover:bg-indigo-800"
+          className="bg-indigo-600 hover:bg-indigo-800 "
           width="w-fit"
           onClick={openModal}
         >
-          Add New Product
+          New Product
         </Button>
       </div>
       <div className="m-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-4 p-2 rounded-md">
         {renderProductList}
       </div>
       <Modal isOpen={isOpen} closeModal={closeModal} title="Add New Product">
-        <form className="space-y-3" onSubmit={submitHandler}>
+        <form className="space-y-2" onSubmit={submitHandler}>
           {renderFormInputs(product, onChangeHandler, error)}
           <Select
             selectedCategory={selectedCategory}
