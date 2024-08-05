@@ -9,16 +9,14 @@ import {
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { categories } from "../../data";
 import { ICategory } from "../../interfaces";
+import { memo } from "react";
 
 interface IProps {
   selectedCategory: { name: string; imageURL: string };
   setSelectedCategory: (category: ICategory) => void;
 }
 
-export default function Select({
-  selectedCategory,
-  setSelectedCategory,
-}: IProps) {
+const Select = ({ selectedCategory, setSelectedCategory }: IProps) => {
   return (
     <Listbox value={selectedCategory} onChange={setSelectedCategory}>
       <Label className="block text-sm font-medium  text-gray-900">
@@ -72,4 +70,5 @@ export default function Select({
       </div>
     </Listbox>
   );
-}
+};
+export default memo(Select);

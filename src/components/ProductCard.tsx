@@ -1,3 +1,5 @@
+/* eslint-disable react-refresh/only-export-components */
+import { memo } from "react";
 import { IProduct } from "../interfaces";
 import { textSlicer } from "../utilis/functions";
 import CircleColor from "./CircleColor";
@@ -75,4 +77,4 @@ const ProductCard = ({
   );
 };
 
-export default ProductCard;
+export default memo(ProductCard);

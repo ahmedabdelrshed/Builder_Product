@@ -1,15 +1,22 @@
-import { ButtonHTMLAttributes, ReactNode } from "react"
+import { ButtonHTMLAttributes, memo, ReactNode } from "react";
 
 interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-children:ReactNode
-className?:string
-width?:'w-full' | 'w-fit'
+  children: ReactNode;
+  className?: string;
+  width?: "w-full" | "w-fit";
 }
 
-const Button = ({children,className,width='w-full',...rest}: IProps) => {
+// eslint-disable-next-line react-refresh/only-export-components
+const Button = ({ children, className, width = "w-full", ...rest }: IProps) => {
   return (
-    <button className={`${className} ${width} p-2 rounded-lg font-medium text-white`} {...rest}>{children}</button>
-  )
-}
+    <button
+      className={`${className} ${width} p-2 rounded-lg font-medium text-white`}
+      {...rest}
+    >
+      {children}
+    </button>
+  );
+};
 
-export default Button
+// eslint-disable-next-line react-refresh/only-export-components
+export default memo(Button);

@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useCallback, useState } from "react";
 import ProductCard from "./components/ProductCard";
 import Modal from "./components/ui/Modal";
 import Button from "./components/ui/Button";
@@ -49,24 +49,24 @@ function App() {
   const [editProduct, setEditProduct] = useState<IProduct>(defaultProduct);
   const [indexProductEdit, setIndexProductEdit] = useState(0);
   // ------------ HANDLER ---------
-  function closeModal() {
+  const closeModal = useCallback(() => {
     setIsOpen(false);
-  }
-  function openModal() {
+  }, []);
+  const openModal = useCallback(() => {
     setIsOpen(true);
-  }
+  }, []);
   function closeModalEdit() {
     setIsOpenModalEdit(false);
   }
-  function openModalEdit() {
+  const openModalEdit = useCallback(() => {
     setIsOpenModalEdit(true);
-  }
+  }, []);
   function closeModalConfirm() {
     setIsOpenModalConfirm(false);
   }
-  function openModalConfirm() {
+  const openModalConfirm = useCallback(() => {
     setIsOpenModalConfirm(true);
-  }
+  }, []);
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
     setProduct({ ...product, [name]: value });
@@ -109,11 +109,11 @@ function App() {
     setProduct(defaultProduct);
     setTempColors([]);
     closeModal();
-    toast.success("Product Added successfully",{
-      style:{
-        backgroundColor: 'black',
-        color: '#fff'
-      }
+    toast.success("Product Added successfully", {
+      style: {
+        backgroundColor: "black",
+        color: "#fff",
+      },
     });
   };
   const submitEditHandler = (event: FormEvent<HTMLFormElement>): void => {
@@ -133,11 +133,11 @@ function App() {
     setProducts(editProducts);
     setEditProduct(defaultProduct);
     closeModalEdit();
-    toast.success("Product Updated successfully",{
-      style:{
-        backgroundColor: 'black',
-        color: '#fff'
-      }
+    toast.success("Product Updated successfully", {
+      style: {
+        backgroundColor: "black",
+        color: "#fff",
+      },
     });
   };
   const submitDeleteProduct = () => {
@@ -146,11 +146,11 @@ function App() {
     );
     setProducts(editProducts);
     closeModalConfirm();
-    toast.success("Product Deleted successfully",{
-      style:{
-        backgroundColor: 'black',
-        color: '#fff'
-      }
+    toast.success("Product Deleted successfully", {
+      style: {
+        backgroundColor: "black",
+        color: "#fff",
+      },
     });
   };
   // ---------- RENDER -----------
